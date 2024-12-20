@@ -24,7 +24,7 @@ public class TodoLogic {
     }
 
     public boolean addTodo(Todo todo) {
-        if (todo != null && todo.getId() > 0) {
+        if (todo != null && todo.getId() > 0 && !toDo.containsKey(todo.getId())) {
             toDo.put(todo.getId(), todo);
             return true;
         }

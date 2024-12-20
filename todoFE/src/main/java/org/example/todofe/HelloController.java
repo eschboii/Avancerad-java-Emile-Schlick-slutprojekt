@@ -32,6 +32,8 @@ public class HelloController {
         tblColID.setCellValueFactory(new PropertyValueFactory<>("id"));
         tblColUppgift.setCellValueFactory(new PropertyValueFactory<>("task"));
         tblColBeskr.setCellValueFactory(new PropertyValueFactory<>("description"));
+        getAllTasks();
+
     }
 
     @FXML
@@ -83,6 +85,24 @@ public class HelloController {
     private Label welcomeText;
 
     @FXML
+    void getAllTasks() {
+        try {
+            URL url = new URL(hostUrl);
+
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+
+            String response = readResponse(connection);
+            txtArea_response.setText("Uppgifter laddade");
+
+            populateTable(response);
+
+        } catch (Exception e) {
+            txtArea_response.setText("ErrorPerror" + e.getMessage());
+        }
+    }
+
+    @FXML
     void addNewTask(ActionEvent event) {
         try {
             int todoID = Integer.parseInt(txtFldInp_id.getText());
@@ -92,7 +112,7 @@ public class HelloController {
             Todo todo = new Todo(todoID, todoUppgift, todoBeskrivning);
 
             if (todoUppgift.isEmpty() || todoBeskrivning.isEmpty()) {
-                txtArea_response.setText("Please enter all books in the book title");
+                txtArea_response.setText("Var vänligt att fylla i alla tomma rutor");
                 return;
             }
 
@@ -113,7 +133,8 @@ public class HelloController {
             }
 
             String response = readResponse(connection);
-            txtArea_response.setText("Task '" + todoUppgift + "' has been added.");
+
+            txtArea_response.setText("Uppgift '" + todoUppgift + "' har lagts till");
 
             populateTable(response);
 
@@ -153,17 +174,18 @@ public class HelloController {
                 os.write(input);
             }
 
-            String response = readResponse(connection);
-            txtArea_response.setText(response);
+            txtArea_response.setText("Uppgift uppdaterad!");
 
             if (connection.getResponseCode() == 200) {
                 updateTableWithUpdatedTask(updatedTodo);
             }
 
         } catch (Exception e) {
-            txtArea_response.setText("Error updating task: " + e.getMessage());
+            txtArea_response.setText("Kunde inte uppdatera uppgiften: " + e.getMessage());
             e.printStackTrace();
         }
+
+        clearInput();
     }
 
     @FXML
@@ -179,23 +201,6 @@ public class HelloController {
         }
     }
 
-    @FXML
-    void getAllTasks(ActionEvent event) {
-        try {
-            URL url = new URL(hostUrl);
-
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-
-            String response = readResponse(connection);
-            txtArea_response.setText("Uppgifter laddade");
-
-            populateTable(response);
-
-        } catch (Exception e) {
-            txtArea_response.setText("ErrorPerror" + e.getMessage());
-        }
-    }
 
     private String readResponse(HttpURLConnection connection) throws IOException {
 
