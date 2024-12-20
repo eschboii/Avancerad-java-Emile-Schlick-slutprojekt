@@ -1,16 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="org.example.todofe.HelloController">
-  <padding>
-    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-  </padding>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-  <Label fx:id="welcomeText"/>
-  <Button text="Hello!" onAction="#onHelloButtonClick"/>
+<VBox fx:id="Vbx" alignment="CENTER" prefHeight="600.0" prefWidth="500.0" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.todofe.HelloController">
+  <padding>
+    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+  </padding>
+   <children>
+      <AnchorPane fx:id="AP1" prefHeight="228.0" prefWidth="460.0">
+         <children>
+            <Label fx:id="welcomeText" layoutX="14.0" layoutY="6.0" prefHeight="25.0" prefWidth="233.0" text="Supercool To-dolista">
+               <font>
+                  <Font name="Arial Bold" size="21.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtFldInp_id" layoutX="22.0" layoutY="91.0" prefHeight="25.0" prefWidth="40.0" />
+            <TextField fx:id="txtFldInp_uppg" layoutX="81.0" layoutY="91.0" prefHeight="25.0" prefWidth="100.0" />
+            <Label layoutX="22.0" layoutY="66.0" text="ID" />
+            <Label layoutX="81.0" layoutY="66.0" text="Uppgift" />
+            <Label layoutX="203.0" layoutY="66.0" text="Beskrivning" />
+            <Button fx:id="btn_update" layoutX="204.0" layoutY="193.0" mnemonicParsing="false" onAction="#changeTask" text="Update" />
+            <Button fx:id="btn_add" layoutX="385.0" layoutY="193.0" mnemonicParsing="false" onAction="#addNewTask" prefHeight="25.0" prefWidth="51.0" text="Add" />
+            <TextArea fx:id="txtAreaInp_beskriv" layoutX="203.0" layoutY="91.0" prefHeight="96.0" prefWidth="233.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="AP2" prefHeight="306.0" prefWidth="460.0">
+         <children>
+            <TableView fx:id="tblV" layoutY="78.0" prefHeight="200.0" prefWidth="460.0">
+              <columns>
+                <TableColumn fx:id="tblColID" maxWidth="30.0" minWidth="30.0" prefWidth="30.0" resizable="false" text="ID" />
+                <TableColumn fx:id="tblColUppgift" maxWidth="125.0" prefWidth="118.0" text="Uppgift" />
+                  <TableColumn fx:id="tblColBeskr" maxWidth="400.0" prefWidth="300.0" text="Beskrivning" />
+              </columns>
+            </TableView>
+            <TextArea fx:id="txtArea_response" editable="false" layoutX="34.0" layoutY="3.0" prefHeight="66.0" prefWidth="392.0" />
+            <Button fx:id="btn_getAllTasks" layoutX="190.0" layoutY="284.0" mnemonicParsing="false" onAction="#getAllTasks" text="Get all tasks" />
+            <Button fx:id="btn_delete" layoutX="409.0" layoutY="283.0" mnemonicParsing="false" onAction="#deleteTaskID" text="Delete" />
+         </children>
+      </AnchorPane>
+   </children>
 </VBox>

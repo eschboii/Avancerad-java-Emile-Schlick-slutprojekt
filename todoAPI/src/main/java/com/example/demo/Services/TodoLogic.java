@@ -5,7 +5,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -17,8 +19,8 @@ public class TodoLogic {
         toDo.put(2, new Todo(2, "Emile DP", "Nicodemos"));
     }
 
-    public Map<Integer, Todo> getTodo() {
-        return toDo;
+    public List<Todo> getAllTodos() {
+        return new ArrayList<>(toDo.values());
     }
 
     public boolean addTodo(Todo todo) {
@@ -66,9 +68,9 @@ public class TodoLogic {
         }
     }
 
-    public ResponseEntity<Map<Integer, Todo>> responseAdded(boolean added) {
+    public ResponseEntity<List<Todo>> responseAdded(boolean added) {
         if (added) {
-            return ResponseEntity.status(HttpStatus.CREATED).body(getTodo());
+            return ResponseEntity.status(HttpStatus.CREATED).body(getAllTodos());
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }

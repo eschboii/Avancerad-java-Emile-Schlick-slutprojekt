@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/todo")
@@ -22,15 +22,16 @@ public class TodoController implements ControllerInterface {
 
     @Override
     @PostMapping
-    public ResponseEntity<Map<Integer, Todo>> addTodo(@RequestBody Todo todo) {
+    public ResponseEntity<List<Todo>> addTodo(@RequestBody Todo todo) {
         boolean added = todologic.addTodo(todo);
         return todologic.responseAdded(added);
     }
 
     @Override
     @GetMapping
-    public Map<Integer, Todo> getAllTodo() {
-        return todologic.getTodo();
+    public ResponseEntity<List<Todo>> getAllTodo() {
+        List<Todo> todos = todologic.getAllTodos();
+        return ResponseEntity.ok(todos);
     }
 
     @Override
