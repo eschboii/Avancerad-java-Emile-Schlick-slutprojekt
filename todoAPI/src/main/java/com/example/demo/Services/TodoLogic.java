@@ -15,8 +15,8 @@ public class TodoLogic {
     private Map<Integer, Todo> toDo = new HashMap<>();
 
     public TodoLogic() {
-        toDo.put(1, new Todo(1, "Oliver Bukakkemon 1", "Heja"));
-        toDo.put(2, new Todo(2, "Emile DP", "Nicodemos"));
+        toDo.put(1, new Todo(1, "Hjälpa Oliver", "Ibland behöver folk hjälp"));
+        toDo.put(2, new Todo(2, "Skriva Readme", "Skriva en readme för slutprojektet"));
     }
 
     public List<Todo> getAllTodos() {
